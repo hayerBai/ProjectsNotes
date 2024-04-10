@@ -1,0 +1,20 @@
+## 解析
+
+在main函数里面我们可以看到它是通过StepFileLoadAndParse这个函数来进行解析文件与构造实体，我们直接进入这个函数来看一下，
+
+首先呢，它是通过一个StructedStepFile结构体来进行文件解析，解析的效果就是通过这个类按行解析读入的step文件流，这个行并不是严格意义上的每一行，指的是每一个编号所包含的每一条数据，从数据头#开始，到最后的；号
+
+它每一行都解析存储为StructedStepFileDataItem结构体，这个DataItem主要就储存了三部分内容，首先是StepId就是step文件每一行的编号，其次就是StepType类型，比如它是face啦，还是shell等等其他拓扑结构，还有就是m_Value它的值，这个值就是括号里面的字符串，包含的具体的一些信息，就比如说点的话，就是他的坐标，一些拓扑结构的话，就是他的一些子结构编号位置，例如他的shell包括了那些subshell,这些subshell的face的编号都是哪几个；这就是在它读取这个文件后，解析与储存的一个的结果；
+
+下面我们稍微看一下这个解析的过程；我们主要看三个函数，
+
+第一个就是这个load函数，它的作用主要就是先将传进来的路径读入为文件流，并进行初始化，清除目前这个StructedStepFile里面可能残留的一些数据，之后就对文件流调用LoadParse这个函数进行解析，如果解析成功，就返回true；
+
+LoadParse这个函数将数据一次性读入内存，并转换成宽字符串，并对这个文件数据按数据条进行一些初步的处理，找到每个条数据的数据头、数据的编号、数据尾；还要判断它的编号id对不对，有没有缺号数据有没有损失，如果这条数据是多行的话，还要考虑它换行的时候有没有缺少一个逗号；之后就要利用NormalizeDataItem函数标准化这条数据，最后按照数据条的形式传给ParseStructedDataItem这个函数进行处理，得到解析后的StructedStepFileDataItem这个结构体并储存；另外解析过程中，还要找到ManifoldSolidBrep的索引值 或 ShellBasedSurfaceModel 的索引值，相当于brep头，为以后进行构造做准备；
+
+ParseStructedDataItem包含了解析 DataItem 主要工作，曲线曲面特殊处理，一般情况分析处理数据条，将编号、类型和value解析出来并返回DataItem。
+
+还有一些其他函数，作用比较简单，
+
+## 构造body实体
+

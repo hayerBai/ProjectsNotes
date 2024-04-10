@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"type":"text","text":"StepExample::Body* StepFileLoadAndParse() ：\n将路径step文件读取为Body 结构体","id":"3ca130378e67b3a6","x":-1260,"y":-1740,"width":525,"height":82},
+		{"type":"text","text":"main()：读取路径、输出{\n//解析输入\nbody = StepFileLoadAndParse(temp);\n//输出\nprintStepFile(savepath, body);\n}","id":"fc7fc7eb50810bd1","x":-800,"y":-2120,"width":460,"height":190},
+		{"type":"text","text":"StepExample：输入、输出{\n}","id":"bca6d1c60be2f342","x":-1300,"y":-1980,"width":343,"height":100},
+		{"id":"453aca5e8d8077e0","x":-1597,"y":-1536,"width":469,"height":50,"type":"text","text":"structedStepFile::load():加载文件"},
+		{"id":"68a752f8f7b77b0c","x":-1597,"y":-1395,"width":469,"height":355,"type":"text","text":"load()流程：\n1. IFStream inFile;\n2. LoadInitialize()???\n3. 判断 LoadParse(inFile)\n4. try_catch\n5. return 是否解析正确；"},
+		{"id":"3cba2000bf261961","x":-1597,"y":-960,"width":469,"height":620,"type":"text","text":"LoadParse():\n1. //将数据一次性读入内存，并转换成宽字符串:\n   stringstream<<infile.rdbuf()\n   contents(buffer.str());\n2. splitWs()\n3. IsDataSectionBegin(line);\n4. IsSectionEnd()\n5. IsSingleLineDataItem()\n6. \n"}
+	],
+	"edges":[
+		{"id":"079c2b33e1f985a2","fromNode":"fc7fc7eb50810bd1","fromSide":"bottom","toNode":"3ca130378e67b3a6","toSide":"top"},
+		{"id":"85169b43a614bc3a","fromNode":"bca6d1c60be2f342","fromSide":"bottom","toNode":"3ca130378e67b3a6","toSide":"top"},
+		{"id":"bad5c2cbef9cf504","fromNode":"3ca130378e67b3a6","fromSide":"bottom","toNode":"453aca5e8d8077e0","toSide":"top"},
+		{"id":"5eb44980aa598144","fromNode":"453aca5e8d8077e0","fromSide":"bottom","toNode":"68a752f8f7b77b0c","toSide":"top"},
+		{"id":"baa7c9cfa5c86fa2","fromNode":"68a752f8f7b77b0c","fromSide":"bottom","toNode":"3cba2000bf261961","toSide":"top"}
+	]
+}
